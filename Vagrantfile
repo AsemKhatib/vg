@@ -19,5 +19,5 @@ Vagrant.configure("2") do |config|
     end
 	
 	config.vm.provision "Provisioning", type: "shell", path: "vagrant_bootstrap/bootstrap.sh"
-	config.vm.provision "shell", inline: "cd /var/www/system && . backup.sh", run: "always"
+	config.vm.provision "shell", type: "shell", path: "vagrant_bootstrap/always.sh", run: "always"
 end

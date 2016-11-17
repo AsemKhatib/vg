@@ -31,11 +31,17 @@ wget -nv -O/usr/local/bin/phpmd http://static.phpmd.org/php/latest/phpmd.phar &&
 wget -nv -O/usr/local/bin/phpcs https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar && chmod +x /usr/local/bin/phpcs -vv
 wget -nv -O/usr/local/bin/phpcbf https://squizlabs.github.io/PHP_CodeSniffer/phpcbf.phar && chmod +x /usr/local/bin/phpcbf -vv
 
+# Add ppa:ondrej/php package and delete the old one
+cd /etc/apt/sources.list.d && rm ondrej-php5-5_6-trusty.list && add-apt-repository -y ppa:ondrej/php
+
+# remove PHP5 and install the new php5.6 package
+apt-get update && yes | sudo apt-get remove php5* && yes | sudo apt-get install php5.6
+
 # Update repositories
 apt-get update
 
 # PHP tools
-apt-get install -y php5-xdebug php5-xmlrpc
+yes | sudo apt-get install php-xdebug
 
 echo "// Xdebug : We use minimal configuration and the browser and the IDE should detect the connection automatically
 xdebug.remote_enable=1
@@ -47,4 +53,8 @@ xdebug.remote_autostart=1
 
 # Finally, restart apache
 service apache2 restart
+
+
+
+
 
