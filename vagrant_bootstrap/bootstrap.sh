@@ -32,10 +32,19 @@ wget -nv -O/usr/local/bin/phpcs https://squizlabs.github.io/PHP_CodeSniffer/phpc
 wget -nv -O/usr/local/bin/phpcbf https://squizlabs.github.io/PHP_CodeSniffer/phpcbf.phar && chmod +x /usr/local/bin/phpcbf -vv
 
 # Add ppa:ondrej/php package and delete the old one
-cd /etc/apt/sources.list.d && rm ondrej-php5-5_6-trusty.list && add-apt-repository -y ppa:ondrej/php
+# cd /etc/apt/sources.list.d && rm ondrej-php5-5_6-trusty.list && add-apt-repository -y ppa:ondrej/php
+
+apt-get update
+add-apt-repository ppa:ondrej/php
+yes | sudo apt-get install php7.0
+apt-get update
+yes | sudo apt-get install php7.0-mysql libapache2-mod-php7.0
+a2dismod php5
+a2enmod php7.0
+apachectl restart
 
 # remove PHP5 and install the new php5.6 package
-apt-get update && yes | sudo apt-get remove php5* && yes | sudo apt-get install php5.6
+# apt-get update && yes | sudo apt-get remove php5* && yes | sudo apt-get install php5.6
 
 # Update repositories
 apt-get update
@@ -43,13 +52,14 @@ apt-get update
 # PHP tools
 yes | sudo apt-get install php-xdebug
 
-echo "// Xdebug : We use minimal configuration and the browser and the IDE should detect the connection automatically
-xdebug.remote_enable=1
+echo "xdebug.remote_enable=1
 xdebug.remote_connect_back=1
 xdebug.remote_autostart=1
 //xdebug.remote_port=10000
 //xdebug.remote_log=/tmp/xdebug-remote.log
-//xdebug.idekey = PHPSTORM" >> /etc/php5/mods-available/xdebug.ini
+//xdebug.idekey = PHPSTORM" >> /etc/php/7.0/mods-available/xdebug.ini
+
+cp /var/www/vagrant_bootstrap/user.ini /etc/php/7.0/apache2/conf.d/ 
 
 # Finally, restart apache
 service apache2 restart
