@@ -43,14 +43,14 @@ a2dismod php5
 a2enmod php7.0
 apachectl restart
 
-# remove PHP5 and install the new php5.6 package
+# remove PHP5 and install the new php5.6 packageexit
 # apt-get update && yes | sudo apt-get remove php5* && yes | sudo apt-get install php5.6
 
 # Update repositories
 apt-get update
 
 # PHP tools
-yes | sudo apt-get install php-xdebug
+yes | sudo apt-get install php-xdebug php-xml
 
 echo "xdebug.remote_enable=1
 xdebug.remote_connect_back=1
