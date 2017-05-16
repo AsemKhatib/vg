@@ -38,7 +38,8 @@ apt-get update
 add-apt-repository ppa:ondrej/php
 yes | sudo apt-get install php7.0
 apt-get update
-yes | sudo apt-get install php7.0-mysql libapache2-mod-php7.0
+yes | sudo apt-get install php7.0-mysql libapache2-mod-php7.0 php7.0-fpm php7.0-common php7.0-cli php-pear php7.0-curl php7.0-gd php7.0-gmp php7.0-intl php7.0-imap php7.0-json php7.0-ldap php7.0-mbstring php7.0-mcrypt php7.0-mysql php7.0-ps php7.0-readline php7.0-tidy php7.0-xmlrpc php7.0-xsl php7.0-zip
+sudo apt-get --purge autoremove
 a2dismod php5
 a2enmod php7.0
 apachectl restart
